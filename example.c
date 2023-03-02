@@ -19,4 +19,4 @@ module_exit(hello_exit);
 /* 描述性定义*/
 MODULE_LICENSE("Dual BSD/GPL");  /* 许可协议 */
 MODULE_AUTHOR("LJM");  /* 作者 */
-MODULE_VERSION("V1.0")  /* 版本号 */
+MODULE_VERSION("V1.0");
