@@ -36,7 +36,7 @@ static struct notifier_block your_panic_notifier = {
 static int __init hello_init(void){
     printk(KERN_INFO "HELLO LINUX MODULE\n");
     register_reboot_notifier(&your_notifier);
-    atomic_notifier_chain_register (&panic_notifier_list, &your_panic_handler);
+    atomic_notifier_chain_register (&panic_notifier_list, &your_panic_notifier);
     printk(KERN_INFO "Reboot notifier registered\n");
     return 0;
 }
