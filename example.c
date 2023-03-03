@@ -1,6 +1,8 @@
 /* 内核模块必须包含的头文件 */
 #include<linux/module.h>
- 
+#include <linux/notifier.h>
+#include <linux/reboot.h>
+
 /* 加载函数：__init表示该函数只能在初始化期间使用，模块装载完后内核就会空间回收，释放内存*/
 static int your_handler (struct notifier_block *self, unsigned long val, void *data)
 {
