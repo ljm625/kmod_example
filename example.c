@@ -28,12 +28,15 @@ static struct notifier_block your_notifier = {
 static int __init hello_init(void){
     printk(KERN_INFO "HELLO LINUX MODULE\n");
     register_reboot_notifier(&your_notifier);
+    printk(KERN_INFO "Reboot notifier registered\n");
     return 0;
 }
  
 /* 卸载函数 */
 static void __exit hello_exit(void){
     printk(KERN_INFO "GOODBYE LINUX MODULE\n");
+    unregister_reboot_notifier(&your_notifier);
+    printk(KERN_INFO "Reboot notifier unregistered\n");
 }
 
 
