@@ -17,9 +17,10 @@ static int your_handler (struct notifier_block *self, unsigned long val, void *d
             printk(KERN_INFO "HELLO SYS POWER OFF\n");
             break;
     }
+    return 0;
 }
 
-static notifier_block your_notifier = {
+static struct notifier_block your_notifier = {
     .notifier_call = your_handler,
 };
 
