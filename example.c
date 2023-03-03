@@ -2,8 +2,29 @@
 #include<linux/module.h>
  
 /* 加载函数：__init表示该函数只能在初始化期间使用，模块装载完后内核就会空间回收，释放内存*/
+static int your_handler (struct notifier_block *self, unsigned long val, void *data)
+{
+    switch (val) {
+        case SYS_HALT:
+            printk(KERN_INFO "HELLO SYS HALT\n");
+            break;
+        case SYS_RESTART:
+            printk(KERN_INFO "HELLO SYS RESTART\n");
+            break;
+        case SYS_POWER_OFF:
+            printk(KERN_INFO "HELLO SYS POWER OFF\n");
+            break;
+    }
+}
+
+static notifier_block your_notifier = {
+    .notifier_call = your_handler,
+};
+
+
 static int __init hello_init(void){
     printk(KERN_INFO "HELLO LINUX MODULE\n");
+    register_reboot_notifier(&your_notifier);
     return 0;
 }
  
@@ -11,6 +32,8 @@ static int __init hello_init(void){
 static void __exit hello_exit(void){
     printk(KERN_INFO "GOODBYE LINUX MODULE\n");
 }
+
+
  
 /* 宏：指明初始化函数和清除函数 */
 module_init(hello_init);
