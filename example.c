@@ -27,6 +27,7 @@ static struct notifier_block your_notifier = {
 static int your_panic_handler (struct notifier_block *self, unsigned long val, void *data)
 {
     printk(KERN_INFO "LJM KERNEL PANIC DETECTED\n");
+    return 0;
 }
 static struct notifier_block your_panic_notifier = {
     .notifier_call = your_panic_handler,
