@@ -24,10 +24,18 @@ static struct notifier_block your_notifier = {
     .notifier_call = your_handler,
 };
 
+static int your_panic_handler (struct notifier_block *self, unsigned long val, void *data)
+{
+    printk(KERN_INFO "LJM KERNEL PANIC DETECTED\n");
+}
+static struct notifier_block your_panic_notifier = {
+    .notifier_call = your_panic_handler,
+};
 
 static int __init hello_init(void){
     printk(KERN_INFO "HELLO LINUX MODULE\n");
     register_reboot_notifier(&your_notifier);
+    atomic_notifier_chain_register (&panic_notifier_list, &your_panic_handler);
     printk(KERN_INFO "Reboot notifier registered\n");
     return 0;
 }
