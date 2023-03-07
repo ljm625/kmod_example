@@ -26,7 +26,7 @@ static struct notifier_block your_notifier = {
 
 static int your_panic_handler (struct notifier_block *self, unsigned long val, void *data)
 {
-    printk(KERN_INFO "LJM KERNEL PANIC DETECTED\n");
+    printk(KERN_INFO "KERNEL PANIC DETECTED\n");
     return 0;
 }
 static struct notifier_block your_panic_notifier = {
@@ -35,16 +35,15 @@ static struct notifier_block your_panic_notifier = {
 
 static int __init hello_init(void){
     printk(KERN_INFO "HELLO LINUX MODULE\n");
-    register_reboot_notifier(&your_notifier);
     atomic_notifier_chain_register (&panic_notifier_list, &your_panic_notifier);
-    printk(KERN_INFO "Reboot notifier registered\n");
+    printk(KERN_INFO "Kernel Panic notifier registered\n");
     return 0;
 }
  
 /* 卸载函数 */
 static void __exit hello_exit(void){
     printk(KERN_INFO "GOODBYE LINUX MODULE\n");
-    unregister_reboot_notifier(&your_notifier);
+    atomic_notifier_chain_unregister(&panic_notifier_list, &your_panic_notifier);
     printk(KERN_INFO "Reboot notifier unregistered\n");
 }
 
